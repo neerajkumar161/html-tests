@@ -1,0 +1,222 @@
+<div class="row">
+  <!-- Column -->
+  <div class="col-lg-3 col-md-6">
+      <div class="card blue-line">
+          <div class="card-body">
+              <div class="d-flex p-10 no-block">
+                  <div class="align-self-center display-6 m-r-20">
+                      <i class="text-success icon-Target-Market"></i>
+                  </div>
+                  <div class="align-slef-center">
+                      <h2 class="m-b-0">{{ordersCounts?.openOrders.count || 0 | number}} <small></small></h2>
+                      <h6 class="m-b-0">Total Open Orders</h6>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-3 col-md-6">
+      <div class="card green-line">
+          <div class="card-body">
+              <div class="d-flex p-10 no-block">
+                  <div class="align-self-center display-6 m-r-20"><i class="text-info icon-Dollar-Sign"></i></div>
+                  <div class="align-slef-center">
+                      <h2 class="m-b-0">{{ordersCounts?.completedOrders.count || 0 | number}} <small><i
+                                  class="ti-angle-up text-success"></i></small></h2>
+                      <h6 class="m-b-0">Total Completed Orders</h6>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-3 col-md-6">
+      <div class="card red-line">
+          <div class="card-body">
+              <div class="d-flex p-10 no-block">
+                  <div class="align-self-center display-6 m-r-20"><i class="text-primary icon-Inbox-Forward"></i>
+                  </div>
+                  <div class="align-slef-center">
+                      <h2 class="m-b-0">{{ordersCounts?.cancelledOrders.count || 0 | number}}<small><i
+                                  class="ti-angle-up text-success"></i></small></h2>
+                      <h6 class="m-b-0">Cacelled/Rejected Orders</h6>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-3 col-md-6">
+      <div class="card yellow-line">
+          <div class="card-body">
+              <div class="d-flex p-10 no-block">
+                  <div class="align-self-center display-6 m-r-20"><i class="text-danger icon-Contrast"></i></div>
+                  <div class="align-slef-center">
+                      <h2 class="m-b-0">{{merchant.wallet | number : '1.2-2'}}<small><i
+                                  class="ti-angle-down text-danger"></i></small></h2>
+                      <h6 class="m-b-0">Wallet Amount</h6>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+</div>
+<div class="row">
+  <div class="col-lg-8 col-md-12">
+      <div class="card income-o-year">
+          <div class="card-body">
+              <div class="d-md-flex m-b-30 align-items-center">
+                  <h5 class="card-title m-b-0 align-self-center">Monthly/Daily Sales</h5>
+                  <div class="ml-auto d-flex">
+                      <div class="mr-1">
+                          <select class="year" name="" id="" (change)="onSelectYear($event)"
+                              [(ngModel)]="selectedYear">
+                              <option value="0">Select Year</option>
+                              <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                          </select>
+                      </div>
+                      <div>
+                          <select class="year" name="" id="" (change)="onSelectMonth($event)"
+                              [(ngModel)]="selectedMonth">
+                              <option value="all">All Month</option>
+                              <option *ngFor="let month of months" [value]="month.val">{{month.name}}</option>
+                          </select>
+                      </div>
+                  </div>
+
+              </div>
+              <div style="height: 370px;padding-bottom: 20px;">
+                  <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="lineChartOptions1"
+                      [legend]="barChartLegend" [chartType]="barChartType" [colors]="barChartColors">
+                  </canvas>
+                  <p style="text-align:center;margin-top:12px;font-size: 12px;font-weight: bold;"><span
+                          class="barColor"></span>Completed Orders</p>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-lg-4 col-md-12">
+      <div class="row">
+          <!-- Column -->
+          <div class="col-md-12">
+              <div class="card band" style="background-color: #6f6d7a;">
+                  <div class="card-body">
+                      <h4 class="card-title text-white">Total Order Count</h4>
+                      <h2 class="m-b-0 text-white">
+                          {{(ordersCounts?.completedOrders?.count || 0)+(ordersCounts?.openOrders?.count || 0)+(ordersCounts?.cancelledOrders?.count || 0) || 0}}
+                      </h2>
+                      <div class="d-flex no-block">
+                          <div class="align-self-end no-shrink">
+                              <div>
+                                  <div>
+                                      <div class="comBox"></div>
+                                      <span class="text-white fs-12">Completed:
+                                          {{ordersCounts?.completedOrders?.count || 0}}</span>
+                                  </div>
+                                  <div>
+                                      <div class="openBox"></div>
+                                      <span class="text-white fs-12">Open: {{ordersCounts?.openOrders?.count || 0}}</span>
+                                  </div>
+                                  <div>
+                                      <div class="canBox"></div>
+                                      <span class="text-white fs-12">Cancelled:
+                                          {{ordersCounts?.cancelledOrders?.count || 0}}</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="ml-auto">
+                              <canvas baseChart width="120px" height="120px" [data]="pieChartData"
+                                  [labels]="pieChartLabels" [chartType]="pieChartType" [legend]="lineChartLegend"
+                                  [colors]="[{backgroundColor: ['#73C6B6', '#545fc7', '#D98880'], borderColor:['#45B39D', '#4550b4', '#CD6155'] }]">
+                              </canvas>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-12">
+              <div class="card band" style="background-color: #96741c;">
+                  <div class="card-body">
+                      <h4 class="card-title text-white">Total Order Value</h4>
+                      <h2 class="m-b-0 text-white">
+                          
+                          {{((ordersCounts?.completedOrders?.amount || 0)+(ordersCounts?.openOrders?.amount || 0)+(ordersCounts?.cancelledOrders?.amount || 0)) || 0 | number}}
+                      </h2>
+                      <div class="d-flex no-block">
+                          <div class="align-self-end no-shrink">
+                              <div>
+                                  <div>
+                                      <div class="comBox"></div>
+                                      <span class="text-white fs-12">Completed:
+                                          {{ordersCounts?.completedOrders?.amount || 0}}</span>
+                                  </div>
+                                  <div>
+                                      <div class="openBox"></div>
+                                      <span class="text-white fs-12">Open: {{ordersCounts?.openOrders?.amount || 0}}</span>
+                                  </div>
+                                  <div>
+                                      <div class="canBox"></div>
+                                      <span class="text-white fs-12">Cancelled:
+                                          {{ordersCounts?.cancelledOrders?.amount || 0}}</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="ml-auto d-flex">
+                              <div class="">
+                                  <canvas baseChart width="120px" height="120px" [data]="pieChartData1"
+                                      [labels]="pieChartLabels" [chartType]="pieChartType" [legend]="lineChartLegend"
+                                      [colors]="[{backgroundColor: ['#73C6B6', '#545fc7', '#D98880'], borderColor:['#45B39D', '#545fc7', '#CD6155'] }]">
+                                  </canvas>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-8 col-md-12">
+      <div class="card income-o-year">
+          <div class="card-body">
+              <div class="d-md-flex m-b-30 align-items-center">
+                  <h5 class="card-title m-b-0 align-self-center">Citywise Overall Sale</h5>
+                  <!-- <div class="ml-auto">
+                     <select class="year"name="" id="" (change)="onSelectYear($event)" [(ngModel)]="selectedYear" >
+                      <option value="0">Select Year</option>
+                      <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                     </select>
+                  </div> -->
+              </div>
+              <div style="height: 370px;padding-bottom: 20px;">
+                  <canvas baseChart [datasets]="barChartData1" [labels]="barChartLabels1"
+                      [options]="lineChartOptions1" [legend]="barChartLegend" [chartType]="barChartType"
+                      [colors]="barChartColors">
+                  </canvas>
+                  <p style="text-align:center;margin-top:12px;font-size: 12px;font-weight: bold;"><span
+                          class="barColor"></span>Completed Orders</p>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- <div class="col-lg-4 col-md-12">
+      <div class="card income-o-year">
+          <div class="card-body">
+              <div class="d-md-flex m-b-30 align-items-center">
+                  <h5 class="card-title m-b-0 align-self-center">Today's Report</h5>
+                  
+              </div>
+              <div style="height: 370px;padding-bottom: 20px;">
+
+              </div>
+          </div>
+      </div>
+  </div> -->
+</div>

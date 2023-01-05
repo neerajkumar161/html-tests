@@ -1,0 +1,48 @@
+.red-line{
+  border-bottom: 4px solid #ad3e3e;
+}
+.green-line{
+  border-bottom: 4px solid #3a923a;
+}
+.blue-line{
+  border-bottom: 4px solid #3e6ead;
+}
+.yellow-line{
+  border-bottom: 4px solid #ffd000;
+}
+.year{
+  border-radius: 10px;
+  padding: 2px 4px;
+}
+.barColor{
+  width: 12px;
+  height: 12px;
+  background-color: #24d2b5;
+  display: inline-block;
+  margin-right: 4px;
+}
+.comBox{
+  width: 12px;
+  height: 12px;
+  background-color: #73C6B6;
+  display: inline-block;
+  margin-right: 4px;
+}
+.openBox{
+  width: 12px;
+  height: 12px;
+  background-color: #3b48c4;
+  display: inline-block;
+  margin-right: 4px;
+}
+.canBox{
+  width: 12px;
+  height: 12px;
+  background-color: #D98880;
+  display: inline-block;
+  margin-right: 4px;
+}
+.fs-12{
+  font-size: 12px;
+  color:#4550b4;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap');
+  .alert  {
+  position: fixed;
+  top: 5rem;
+  right: 27.5rem;
+  border:3px double rgba(0, 0, 0, 0.2);
+  border-color: #f8cd2a;
+  border-radius: 4px;
+  padding: 10px;
+  background: #e3e0d8;
+  color: #111111;
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  transition:  all 0.2s ease-in-out;
+  /* opacity: 1; */
+  font-family: 'Hind Siliguri', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.alert-inside {
+  text-align: center;
+  background: #ffffff00;
+}
+.image {
+  height: 200px;
+  background: #ffffff00;
+  /* width: 60% */
+}
+div.image::before {
+   content:url('./assets/correct-hi.png');
+}​
+.visible {
+  opacity: 1;
+  transform: translateY(1.25rem);
+}
+</style>
+<body>
+  <div>Bootstrap 4.6</div>
+  <!-- <div class="outer-alert"> -->
+    <div class="alert">
+      <div class="alert-inside">
+        <div class="image"></div>
+        <p>You have create <br> 30 Orders Successfully</p>
+      </div> 
+      
+    </div>
+  <!-- </div> -->
+  
+</body>
+</html>

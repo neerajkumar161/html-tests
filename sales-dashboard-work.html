@@ -1,0 +1,519 @@
+<style>
+  .label-pl {
+    background-color: #bb596b;
+    color: #ffffff;
+  }
+
+  .label-pg {
+    background-color: #80bdab;
+    color: #ffffff;
+  }
+  /* Three image containers (use 25% for four, and 50% for two, etc) */
+  .column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+  }
+
+  /* Clear floats after image containers */
+  .row1::after {
+    content: '';
+    clear: both;
+    display: table;
+  }
+
+  .red-line {
+    border-bottom: 4px solid #ad3e3e;
+  }
+  .green-line {
+    border-bottom: 4px solid #3a923a;
+  }
+  .blue-line {
+    border-bottom: 4px solid #3e6ead;
+  }
+  .yellow-line {
+    border-bottom: 4px solid #ffd000;
+  }
+  .pink-line {
+    border-bottom: 4px solid #f933ff;
+  }
+  .year {
+    border-radius: 10px;
+    padding: 2px 4px;
+  }
+  .barColor {
+    width: 12px;
+    height: 12px;
+    background-color: #24d2b5;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  .plaBox {
+    width: 12px;
+    height: 12px;
+    background-color: #eecbb4;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  .openBox {
+    width: 12px;
+    height: 12px;
+    background-color: #3b48c4;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  .canBox {
+    width: 12px;
+    height: 12px;
+    background-color: #e96559;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  .comproBox {
+    width: 12px;
+    height: 12px;
+    background-color: #8ad980;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  .comvenBox {
+    width: 12px;
+    height: 12px;
+    background-color: #73c6b6;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  .fs-12 {
+    font-size: 12px;
+    color: #4550b4;
+  }
+</style>
+
+<div class="row wrapper fix_search_bar border-bottom white-bg page-heading">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="lable_center">
+        <label>{{ title.date_filter | translate }}</label>
+      </div>
+      <div class="col-md-12 remove_padding">
+        <div class="form-group">
+          <div class="input-group">
+            <my-date-picker
+              id="start_date"
+              [options]="helper.myStartDatePickerOptions"
+              placeholder="Start Date"
+              [(ngModel)]="start_date"
+              (dateChanged)="helper.onStartDateChanged($event)"
+              readonly
+            ></my-date-picker>
+            <span class="input-group-addon date_filter_icon">To</span>
+            <my-date-picker
+              id="end_date"
+              [options]="helper.myEndDatePickerOptions"
+              placeholder="End Date"
+              [(ngModel)]="end_date"
+              (dateChanged)="helper.onEndDateChanged($event)"
+              readonly
+            ></my-date-picker>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-3 col-12">
+      <div>
+        <label>{{ title.status | translate }}</label>
+      </div>
+      <div class="form-group" id="displayas">
+        <select
+          chosen
+          class="chosen-select"
+          id="displayas"
+          [(ngModel)]="displayas"
+          name="displayas"
+          tabindex="4"
+        >
+          <option value="day">Daily</option>
+          <option value="week">Weekly</option>
+          <option value="month">Monthly</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="col-md-6 col-sm-6 filter_btn_div">
+        <input
+          type="button"
+          (click)="filter()"
+          class="btn filter_apply_btn pull-right"
+          value="{{ button.apply | translate }}"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 150px; width: 100%">
+  <!-- <div class="row" style="margin-top: 40px"> -->
+  <!-- <div class="ibox">
+      <div class="ibox-content" style="margin-top: 40px"> -->
+  <!-- Column -->
+  <div class="col-lg-2 col-md-6">
+    <div class="card blue-line">
+      <div class="card-body">
+        <div class="d-flex p-10 no-block">
+          <div class="align-self-center display-6 m-r-20">
+            <i class="text-success icon-Target-Market"></i>
+          </div>
+          <div class="align-slef-center">
+            <h2 class="m-b-0">652 <small></small></h2>
+            <h6 class="m-b-0">Total Placed Orders</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-2 col-md-6">
+    <div class="card green-line">
+      <div class="card-body">
+        <div class="d-flex p-10 no-block">
+          <div class="align-self-center display-6 m-r-20">
+            <i class="text-info icon-Dollar-Sign"></i>
+          </div>
+          <div class="align-slef-center">
+            <h2 class="m-b-0">
+              194<small><i class="ti-angle-up text-success"></i></small>
+            </h2>
+            <h6 class="m-b-0">Total Open Orders</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-2 col-md-6">
+    <div class="card red-line">
+      <div class="card-body">
+        <div class="d-flex p-10 no-block">
+          <div class="align-self-center display-6 m-r-20">
+            <i class="text-primary icon-Inbox-Forward"></i>
+          </div>
+          <div class="align-slef-center">
+            <h2 class="m-b-0">
+              17<small><i class="ti-angle-up text-success"></i></small>
+            </h2>
+            <h6 class="m-b-0">Cacelled/Rejected Orders</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-2 col-md-6">
+    <div class="card yellow-line">
+      <div class="card-body">
+        <div class="d-flex p-10 no-block">
+          <div class="align-self-center display-6 m-r-20">
+            <i class="text-info icon-Dollar-Sign"></i>
+          </div>
+          <div class="align-slef-center">
+            <h2 class="m-b-0">
+              320<small><i class="ti-angle-up text-success"></i></small>
+            </h2>
+            <h6 class="m-b-0">Total Completed Providere Paid Orders</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-2 col-md-6">
+    <div class="card pink-line">
+      <div class="card-body">
+        <div class="d-flex p-10 no-block">
+          <div class="align-self-center display-6 m-r-20">
+            <i class="text-info icon-Dollar-Sign"></i>
+          </div>
+          <div class="align-slef-center">
+            <h2 class="m-b-0">
+              0<small><i class="ti-angle-up text-success"></i></small>
+            </h2>
+            <h6 class="m-b-0">Total Completed Vendor Paid Orders</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- </div> -->
+  <!-- </div> -->
+</div>
+
+<!-- sales report -->
+<div class="row">
+  <div
+    class="wrapper wrapper-content content_top_bar_view1 animated fadeInRight"
+  >
+    <!-- <div class="ibox">
+      <div class="ibox-content" style="margin-top: 40px">
+<div class="row"> -->
+    <div class="col-lg-8 col-md-12">
+      <div style="height: 450px; padding-bottom: 20px">
+        <canvas
+          *ngIf="loaded"
+          baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="lineChartOptions1"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          [colors]="barChartColors"
+        >
+        </canvas>
+      </div>
+    </div>
+
+    <!-- </div>
+</div>
+</div> -->
+
+    <div class="col-lg-4 col-md-12">
+      <div class="row">
+        <!-- Column -->
+        <div class="col-md-12">
+          <div class="card band" style="background-color: #6f6d7a">
+            <div class="card-body">
+              <h4 class="card-title text-white">Total Order Count</h4>
+              <h2 class="m-b-0 text-white">
+                Total Order Counts
+                {{(ordersCounts?.completedOrders || 0)+(ordersCounts?.openOrders || 0)+(ordersCounts?.cancelledOrders || 0) || 0}}
+              </h2>
+              <div class="d-flex no-block">
+                <div class="align-self-end no-shrink">
+                  <div>
+                    <div>
+                      <div class="plaBox"></div>
+                      <span class="text-white fs-12"
+                        >placed:661
+                        {{ordersCounts?.completedOrders || 0}}
+                      </span>
+                    </div>
+                    <div>
+                      <div class="openBox"></div>
+                      <span class="text-white fs-12"
+                        >open: 23
+                        {{ordersCounts?.openOrders || 0}}
+                      </span>
+                    </div>
+                    <div>
+                      <div class="canBox"></div>
+                      <span class="text-white fs-12"
+                        >cancelled:19
+                        {{ordersCounts?.cancelledOrders || 0}}
+                      </span>
+                    </div>
+                    <div>
+                      <div class="comproBox"></div>
+                      <span class="text-white fs-12"
+                        >completed provider paid:320
+                        {{ordersCounts?.cancelledOrders || 0}}
+                      </span>
+                    </div>
+                    <div>
+                      <div class="comvenBox"></div>
+                      <span class="text-white fs-12"
+                        >completed vendor paid:0
+                        {{ordersCounts?.cancelledOrders || 0}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="ml-auto">
+                  <canvas
+                    baseChart
+                    width="70px"
+                    height="70px"
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [legend]="lineChartLegend"
+                    [colors]="[
+                      {
+                        backgroundColor: ['#73C6B6', '#545fc7', '#D98880'],
+                        borderColor: ['#45B39D', '#4550b4', '#CD6155']
+                      }
+                    ]"
+                  >
+                  </canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card band" style="background-color: #96741c">
+            <div class="card-body">
+              <h4 class="card-title text-white">Total Order Value</h4>
+              <h2 class="m-b-0 text-white">
+                2370499490
+                <!-- {{((ordersCounts?.completedOrders?.amount || 0)+(ordersCounts?.openOrders?.amount || 0)+(ordersCounts?.cancelledOrders?.amount || 0)) || 0 | number}} -->
+              </h2>
+              <div class="d-flex no-block">
+                <div class="align-self-end no-shrink">
+                  <div>
+                    <div>
+                      <div class="plaBox"></div>
+                      <span class="text-white fs-12"
+                        >placed:66192021
+                        <!-- {{ordersCounts?.completedOrders?.count || 0}} -->
+                      </span>
+                    </div>
+                    <div>
+                      <div class="openBox"></div>
+                      <span class="text-white fs-12"
+                        >open: 23342222
+                        <!-- {{ordersCounts?.openOrders?.count || 0}} -->
+                      </span>
+                    </div>
+                    <div>
+                      <div class="canBox"></div>
+                      <span class="text-white fs-12"
+                        >cancelled:192233
+                        <!-- {{ordersCounts?.cancelledOrders?.count || 0}} -->
+                      </span>
+                    </div>
+                    <div>
+                      <div class="comproBox"></div>
+                      <span class="text-white fs-12"
+                        >completed provider paid:3201231
+                        <!-- {{ordersCounts?.cancelledOrders?.count || 0}} -->
+                      </span>
+                    </div>
+                    <div>
+                      <div class="comvenBox"></div>
+                      <span class="text-white fs-12"
+                        >completed vendor paid:234421
+                        <!-- {{ordersCounts?.cancelledOrders?.count || 0}} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="ml-auto d-flex">
+                  <div class="">
+                    <canvas
+                      baseChart
+                      width="120px"
+                      height="120px"
+                      [data]="pieChartData1"
+                      [labels]="pieChartLabels"
+                      [chartType]="pieChartType"
+                      [legend]="lineChartLegend"
+                      [colors]="[
+                        {
+                          backgroundColor: ['#73C6B6', '#545fc7', '#D98880'],
+                          borderColor: ['#45B39D', '#545fc7', '#CD6155']
+                        }
+                      ]"
+                    >
+                    </canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- citywise data -->
+<div class="wrapper wrapper-content content_top_bar_view1 animated fadeInRight">
+  <div class="ibox">
+    <div class="ibox-content" style="margin-top: 10px">
+      <div class="row">
+        <div class="col-sm-6 col-6">
+          <div>
+            <label>Cities</label>
+          </div>
+          <div class="form-group" id="cityas">
+            <select
+              chosen
+              class="chosen-select"
+              id="cityas"
+              [(ngModel)]="cityas"
+              name="cityas"
+              tabindex="4"
+            >
+              <option value="all">{{ title.all | translate }}</option>
+
+              <option *ngFor="let cities of cities" [value]="cities.city_name">
+                {{ cities.city_name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="col-md-6 col-sm-6 filter_btn_div">
+            <input
+              type="button"
+              (click)="cityfilter()"
+              class="btn filter_apply_btn pull-right"
+              value="{{ button.apply | translate }}"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-md-12">
+          <div style="height: 450px; padding-bottom: 20px">
+            <canvas
+              *ngIf="cityloaded"
+              baseChart
+              [datasets]="barChartData1"
+              [labels]="barChartLabels1"
+              [options]="lineChartOptions2"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              [colors]="barChartColors1"
+            >
+            </canvas>
+            <!-- <div class="row1">
+    <div class="column">
+    <p style="text-align:center;margin-top:12px;font-size: 12px;font-weight: bold;"><span
+      style="width: 12px;
+      height: 12px;
+      background-color: blue;
+      display: inline-block;
+      margin-right: 1px;"></span>Open Order</p>
+      </div>
+      <div class="column">
+    <p style="text-align:center;margin-top:12px;font-size: 12px;font-weight: bold;"><span
+style="width: 12px;
+height: 12px;
+background-color: green;
+display: inline-block;
+margin-right: 2px;"></span>Completed Order</p>
+</div>
+
+<div class="col-md-8 col-sm-8 col-xs-8">
+  <p style="text-align:center;margin-top:12px;font-size: 12px;font-weight: bold;"><span
+style="width: 12px;
+height: 12px;
+background-color: red;
+display: inline-block;
+margin-right: 2px;"></span>Cancelled Order</p>
+  </div>
+</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
